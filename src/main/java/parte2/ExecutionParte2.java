@@ -36,30 +36,30 @@ public class ExecutionParte2 {
         entityManager.getTransaction().commit();
 
         // 3 - Resgatar instâncias no banco de dados
-        Estado estadoEncontrado = entityManager.find(Estado.class, 1);
-        Aluno alunoEncontrado = entityManager.find(Aluno.class, 1);
-
-        System.out.println(estadoEncontrado);
-        System.out.println("Antes de mudar " + alunoEncontrado);
+//        Estado estadoEncontrado = entityManager.find(Estado.class, 1);
+//        Aluno alunoEncontrado = entityManager.find(Aluno.class, 1);
+//
+//        System.out.println(estadoEncontrado);
+//        System.out.println("Antes de mudar " + alunoEncontrado);
 
         // 4 - Alterar uma entidade
-        entityManager.getTransaction().begin();
-
-        alunoEncontrado.setNome("Karim");
-        alunoEncontrado.setIdade(30);
-
-        entityManager.getTransaction().commit();
-
-        System.out.println("Depois de mudar " + alunoEncontrado);
+//        entityManager.getTransaction().begin();
+//
+//        alunoEncontrado.setNome("Karim");
+//        alunoEncontrado.setIdade(30);
+//
+//        entityManager.getTransaction().commit();
+//
+//        System.out.println("Depois de mudar " + alunoEncontrado);
 
 
         // 5 - Remover uma entidade
 
-        entityManager.getTransaction().begin();
-
-        entityManager.remove(alunoEncontrado);
-
-        entityManager.getTransaction().commit();
+//        entityManager.getTransaction().begin();
+//
+//        entityManager.remove(alunoEncontrado);
+//
+//        entityManager.getTransaction().commit();
 
 
         // Encerrar o gerenciador de entidades e encerrar a fabrica de gerenciadores de entidade.

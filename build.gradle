@@ -14,8 +14,8 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     //implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
-    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.12.Final'
-    //implementation group: 'org.eclipse.persistence', name: 'eclipselink', version: '2.7.6'
+    //implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.12.Final'
+    implementation group: 'org.eclipse.persistence', name: 'eclipselink', version: '2.7.6'
 
 
 
