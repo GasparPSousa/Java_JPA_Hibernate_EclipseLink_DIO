@@ -22,15 +22,42 @@ public class ExecutionParte2 {
 
         // 2.1 - Criar instancias para serem adicionadas no banco de dados
         Estado estadoParaAdicionar = new Estado("Rio da Janeiro", "RJ");
-        Aluno alunoParaAdicionar = new Aluno("Daniel", 29, estadoParaAdicionar);
-
+        Aluno alunoParaAdicionar1 = new Aluno("Cristina", 38, estadoParaAdicionar);
+        Aluno alunoParaAdicionar2 = new Aluno("Layane", 27, estadoParaAdicionar);
 
         // 2.2 - Iniciar uma transacao para adiconar as instancias no banco de dados
 
         entityManager.getTransaction().begin();
 
         entityManager.persist(estadoParaAdicionar);
-        entityManager.persist(alunoParaAdicionar);
+        entityManager.persist(alunoParaAdicionar1);
+        entityManager.persist(alunoParaAdicionar2);
+
+        entityManager.getTransaction().commit();
+
+        // 3 - Resgatar instâncias no banco de dados
+        Estado estadoEncontrado = entityManager.find(Estado.class, 1);
+        Aluno alunoEncontrado = entityManager.find(Aluno.class, 1);
+
+        System.out.println(estadoEncontrado);
+        System.out.println("Antes de mudar " + alunoEncontrado);
+
+        // 4 - Alterar uma entidade
+        entityManager.getTransaction().begin();
+
+        alunoEncontrado.setNome("Karim");
+        alunoEncontrado.setIdade(30);
+
+        entityManager.getTransaction().commit();
+
+        System.out.println("Depois de mudar " + alunoEncontrado);
+
+
+        // 5 - Remover uma entidade
+
+        entityManager.getTransaction().begin();
+
+        entityManager.remove(alunoEncontrado);
 
         entityManager.getTransaction().commit();
 
