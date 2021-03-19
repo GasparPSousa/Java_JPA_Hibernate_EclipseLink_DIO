@@ -26,7 +26,7 @@
     <!-- ==========================================================================================================================  -->
 
     <!-- Unidade de persistencia da parte 2 do curso (Com implementacao Hibernate ou EclipseLink) -->
-    <persistence-unit name="part2-DIO">
+    <persistence-unit name="parte2-DIO">
 
         <description> Unidade de persistencia da parte 2 do tutorial basico de JPA da Digital Innovation One com implementacoes (Hibernate ou EclipseLink) </description>
 
