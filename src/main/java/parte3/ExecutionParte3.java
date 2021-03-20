@@ -1,11 +1,15 @@
 package parte3;
 
 import classes.Aluno;
+import classes.Aluno_;
 import classes.Estado;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class ExecutionParte3 {
@@ -50,21 +54,21 @@ public class ExecutionParte3 {
         // 2.3 - SQL nativo
 
         // Trazendo somente 1 resultado
-        String sql = "SELECT * FROM Aluno WHERE nome = :nome";
-        Aluno alunoSQL = (Aluno) entityManager
-                .createNativeQuery(sql, Aluno.class)
-                .setParameter("nome", nome)
-                .getSingleResult();
-
-        // Trazendo uma lista comp resultado
-        String sqlList = "SELECT * FROM Aluno";
-        List<Aluno> alunoSQLList = entityManager
-                .createNativeQuery(sqlList, Aluno.class)
-                .getResultList();
-
-        // Resultado das consultas acima
-        System.out.println("Consulta alunoSQL: " + alunoSQL);
-        alunoSQLList.forEach(Aluno -> System.out.println("Consulta alunoSQLList: " + Aluno));
+//        String sql = "SELECT * FROM Aluno WHERE nome = :nome";
+//        Aluno alunoSQL = (Aluno) entityManager
+//                .createNativeQuery(sql, Aluno.class)
+//                .setParameter("nome", nome)
+//                .getSingleResult();
+//
+//        // Trazendo uma lista comp resultado
+//        String sqlList = "SELECT * FROM Aluno";
+//        List<Aluno> alunoSQLList = entityManager
+//                .createNativeQuery(sqlList, Aluno.class)
+//                .getResultList();
+//
+//        // Resultado das consultas acima
+//        System.out.println("Consulta alunoSQL: " + alunoSQL);
+//        alunoSQLList.forEach(Aluno -> System.out.println("Consulta alunoSQLList: " + Aluno));
 
         // =============================================================================================================
 
@@ -72,23 +76,45 @@ public class ExecutionParte3 {
 
         // Trazendo somente 1 resultado
 
-        String jpql = "SELECT a FROM Aluno a WHERE a.nome = :nome";
-        Aluno alunoJPQL = entityManager
-                .createQuery(jpql, Aluno.class)
-                .setParameter("nome", nome)
-                .getSingleResult();
+//        String jpql = "SELECT a FROM Aluno a WHERE a.nome = :nome";
+//        Aluno alunoJPQL = entityManager
+//                .createQuery(jpql, Aluno.class)
+//                .setParameter("nome", nome)
+//                .getSingleResult();
+//
+//        // TRazendo uma lista como resultado
+//        String jpqlList = "SELECT a FROM Aluno a WHERE a.estado = :estado";
+//        List<Aluno> alunoJPQLList = entityManager
+//                .createQuery(jpqlList, Aluno.class)
+//                .setParameter("estado", estadoParaAdicionar)
+//                .getResultList();
+//
+//        // Resultados das consultas acima
+//        System.out.println("Consulta alunoJPQL: " + alunoJPQL);
+//        alunoJPQLList.forEach(Aluno -> System.out.println("Consulta alunoJPQLList: " + Aluno));
 
-        // TRazendo uma lista como resultado
-        String jpqlList = "SELECT a FROM Aluno a WHERE a.estado = :estado";
-        List<Aluno> alunoJPQLList = entityManager
-                .createQuery(jpqlList, Aluno.class)
-                .setParameter("estado", estadoParaAdicionar)
-                .getResultList();
+        // =============================================================================================================
+
+        // 2.5 - JPA Criteria API + JPA Metamodel
+
+        // Trazendo somento 1 resultado
+        CriteriaQuery<Aluno> criteriaQuery = entityManager.getCriteriaBuilder().createQuery(Aluno.class);
+        Root<Aluno> alunoRoot = criteriaQuery.from(Aluno.class);
+        CriteriaBuilder.In<String> inClause = entityManager.getCriteriaBuilder().in(alunoRoot.get(Aluno_.nome));
+        inClause.value(nome);
+        criteriaQuery.select(alunoRoot).where(inClause);
+        Aluno alunoAPICriteria = entityManager.createQuery(criteriaQuery).getSingleResult();
+
+        // Trazendo uma lista com resultado
+        CriteriaQuery<Aluno> criteriaQueryList = entityManager.getCriteriaBuilder().createQuery(Aluno.class);
+        Root<Aluno> alunoRootList = criteriaQueryList.from(Aluno.class);
+        List<Aluno> alunoAPICriteriaList = entityManager.createQuery(criteriaQueryList).getResultList();
 
         // Resultados das consultas acima
-        System.out.println("Consulta alunoJPQL: " + alunoJPQL);
-        alunoJPQLList.forEach(Aluno -> System.out.println("Consulta alunoJPQLList: " + Aluno));
-
-
+        System.out.println("Consulta alunoAPICriteria: " + alunoAPICriteria);
+        alunoAPICriteriaList.forEach(Aluno -> System.out.println("Consulta alunoAPICriteriaList: " + Aluno));
     }
+
+
+
 }
