@@ -66,6 +66,29 @@ public class ExecutionParte3 {
         System.out.println("Consulta alunoSQL: " + alunoSQL);
         alunoSQLList.forEach(Aluno -> System.out.println("Consulta alunoSQLList: " + Aluno));
 
+        // =============================================================================================================
+
+        // 2.4 - JPQL
+
+        // Trazendo somente 1 resultado
+
+        String jpql = "SELECT a FROM Aluno a WHERE a.nome = :nome";
+        Aluno alunoJPQL = entityManager
+                .createQuery(jpql, Aluno.class)
+                .setParameter("nome", nome)
+                .getSingleResult();
+
+        // TRazendo uma lista como resultado
+        String jpqlList = "SELECT a FROM Aluno a WHERE a.estado = :estado";
+        List<Aluno> alunoJPQLList = entityManager
+                .createQuery(jpqlList, Aluno.class)
+                .setParameter("estado", estadoParaAdicionar)
+                .getResultList();
+
+        // Resultados das consultas acima
+        System.out.println("Consulta alunoJPQL: " + alunoJPQL);
+        alunoJPQLList.forEach(Aluno -> System.out.println("Consulta alunoJPQLList: " + Aluno));
+
 
     }
 }
